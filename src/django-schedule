@@ -5,8 +5,9 @@ Don't forget to change the user
 """
 
 from crontab import CronTab
+import sys
 
-def at4():
+def restart_daily():
 	myCron = CronTab(user='handry')
 
 	job = myCron.new(command='systemctl restart djangorun.service', comment='restart-django-service')
@@ -18,12 +19,12 @@ def at4():
 		print jb
 
 
-def at5():
+def check_daily():
 	myCron = CronTab(user='handry')
 
-	job = myCron.new(command='fuser 8000/tcp >> running.txt', comment='restart-django-service')
-	# job.hour.on(5)
-	job.minute.every(1)
+	job = myCron.new(command='django-check', comment='restart-django-service')
+	job.hour.on(5)
+	# job.minute.every(1)
 
 	myCron.write()	
 
@@ -32,7 +33,13 @@ def at5():
 
 
 # main program
-at4()
-# at5()
+arg = sys.argv[1]
+if arg == "restart":
+	restart_daily()
+elif arg == "check":
+	check_daily()
+else:
+	print 'You should use "django-schedule restart or check"'
+
 
 

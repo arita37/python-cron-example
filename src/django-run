@@ -1,0 +1,11 @@
+#!/bin/bash
+# This script to running django application, 
+# But change the variable to corresponding environment
+
+ip="0.0.0.0:8080"
+commandEx="//home/noel/project27/geoapp/geoproject/manage.py runserver"
+pythonEnv="/home/noel/anaconda2/bin/python"
+
+$pythonEnv $commandEx $ip
+
+
